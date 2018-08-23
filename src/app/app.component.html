@@ -1,0 +1,57 @@
+<div class="position-relative container">
+    <div class="row justify-content-center">
+      <div class="card mt-sm-3 col-md-8">
+        <div class="card-body">
+          <h3 class="mb-0">Artist Directory</h3>
+          <div class="form-group">
+            <div class="form-label" *ngIf="query"><strong>For:</strong>
+              {{ query }}
+            </div>
+            <input class="form-control mt-2" type="text" #newArtist placeholder="search artist... " [(ngModel)] = "query">
+            <div id="accordion">
+                <div class="card">
+                  <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                      <button type="button" class="btn btn-light btn-block" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Add Option
+                      </button>
+                    </h5>
+                  </div>
+                  <div id="collapseOne" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordion">
+                      <div class="card-body">
+                          <app-more-options></app-more-options>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+            <!-- <button type="button" class="btn btn-outline-primary"  data-toggle="collapse" data-target="#collapseExample" 
+            (click)="addArtist(newArtist.value); newArtist.value=''">More Options</button> -->
+            
+            <!-- <a class="btn btn-primary" href="#" role="button" 
+            (click)="addArtist(newArtist.value); newArtist.value=''">Add</a> -->
+            <!-- <button type="button" class="btn btn-outline-primary" 
+            (click)="addArtist(newArtist.value); newArtist.value=''">Add</button> -->
+          </div><!-- form-group -->
+        </div><!-- card-body -->
+      </div><!-- card -->
+    </div><!-- row -->
+  
+    <div class="position-absolute container" style="left: 0; z-index:10">
+      <div class="row justify-content-center">
+        <div class="col-sm-10 col-md-8 col-lg-6 col-xl-5">
+          <div class="list-group" *ngIf="query">
+            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start"
+              *ngFor="let artist of (artists | searchArtists: query)"
+              (click)="showArtist(artist) ; query=''"
+              [style.backgroundColor] = "artist.highlight ? '#EEE' : '#FFF'">
+              <app-artist-items [artist]="artist"></app-artist-items>
+            </a><!-- link -->
+          </div><!-- list-group -->
+        </div><!-- col -->
+      </div><!-- row -->
+    </div><!-- container -->
+    <app-artist-details *ngIf="currentArtist"
+    [artist]="currentArtist"></app-artist-details>
+  
+  </div><!-- position -->
+  
